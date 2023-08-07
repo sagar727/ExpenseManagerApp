@@ -103,26 +103,16 @@ class RemoteDB {
           snapshot.forEach((doc) => {
             const data = doc.data();
             data.id = doc.id;
-            expenseSum = expenseSum + data.amount;
-            result.push(data);
-          });
-        })
-        .catch((error) => {
-          reject(error.message);
-        });
-
-      const dbCollection1 = collection(this.db, uid);
-      getDocs(dbCollection1)
-        .then((snapshot) => {
-          snapshot.forEach((doc) => {
-            const data = doc.data();
-            data.id = doc.id;
-            incomeSum = incomeSum + data.amount;
+            console.log(data);
+            if (data.type == "") {
+              incomeSum = incomeSum + data.amount;
+            } else {
+              expenseSum = expenseSum + data.amount;
+            }
             result.push(data);
           });
           const total = incomeSum - expenseSum;
           result.push(total);
-          console.log(result);
           resolve(result);
         })
         .catch((error) => {
@@ -146,21 +136,10 @@ class RemoteDB {
     });
   }
 
-  delete(uid, id, type, time) {
-    let storeName = "";
-    if (type == "") {
-      storeName = "Income";
-    } else {
-      storeName = "Expenses";
-    }
-
+  delete(uid, id) {
     return new Promise((resolve, reject) => {
       if (this.open()) {
-        const docRef = doc(
-          this.db,
-          "/" + uid + "/" + storeName + "/" + time + "/",
-          id
-        );
+        const docRef = doc(this.db, uid, id);
 
         deleteDoc(docRef)
           .then(() => {
@@ -175,19 +154,9 @@ class RemoteDB {
   }
 
   update(uid, id, data) {
-    let storeName = "";
-    if (data.type === "") {
-      storeName = "Income";
-    } else {
-      storeName = "Expenses";
-    }
     return new Promise((resolve, reject) => {
       if (this.open()) {
-        const docRef = doc(
-          this.db,
-          "/" + uid + "/" + storeName + "/" + data.time,
-          id
-        );
+        const docRef = doc(this.db, uid, id);
 
         updateDoc(docRef, data)
           .then(() => {

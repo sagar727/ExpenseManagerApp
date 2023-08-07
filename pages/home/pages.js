@@ -25,7 +25,8 @@ localDB
   });
 
 const remoteDB = new RemoteDB();
-if (navigator.onLine) {
+console.log(navigator.onLine);
+if (navigator.onLine == true) {
   remoteDB
     .open()
     .then((result) => {
@@ -41,7 +42,7 @@ if (navigator.onLine) {
     .catch((error) => {
       console.log(error);
     });
-} else {
+} else if (navigator.onLine == false) {
   localDB
     .open()
     .then((result) => {
@@ -109,7 +110,6 @@ function add() {
             .add("Expenses", data)
             .then(() => {
               data = {};
-              getListData();
             })
             .catch((error) => {
               console.log(error);
@@ -117,7 +117,6 @@ function add() {
             });
           data = {};
           location.href = "../home/home.html";
-          getListData();
         })
         .catch((error) => {
           console.log(error);
@@ -125,7 +124,6 @@ function add() {
         });
     } else if (btn.innerText == "Update") {
       updateData();
-      getListData();
     }
   } else if (category[1].checked) {
     val = category[1].value;
@@ -146,7 +144,6 @@ function add() {
             .add("Income", data)
             .then(() => {
               data = {};
-              getListData();
             })
             .catch((error) => {
               console.log(error);
@@ -154,7 +151,6 @@ function add() {
             });
           data = {};
           location.href = "../home/home.html";
-          getListData();
         })
         .catch((error) => {
           console.log(error);
@@ -162,7 +158,6 @@ function add() {
         });
     } else if (btn.innerText == "Update") {
       updateData();
-      getListData();
     }
   }
 }
@@ -242,7 +237,7 @@ function listitems(date, amount, type, desc, id) {
   deleteBtn.addEventListener("click", deleteList);
   function deleteList() {
     remoteDB
-      .delete(uid, id, type)
+      .delete(uid, id)
       .then(() => {
         localDB
           .delete(id, type)
@@ -268,7 +263,6 @@ function setData() {
   if (localStorage.length < 6) {
     btn.innerText = "Save";
   } else {
-    const timeData = localStorage.getItem("time");
     id = localStorage.getItem("id");
     const dateData = localStorage.getItem("date");
     const typeData = localStorage.getItem("type");
@@ -280,7 +274,6 @@ function setData() {
     const date = document.getElementById("datepicker");
     const category = document.getElementsByName("category");
     const btn = document.getElementById("saveBtn");
-    timeid = parseInt(timeData);
 
     amount.value = amountData;
     desc.value = descData;
@@ -309,6 +302,7 @@ function updateData() {
       type: type,
       desc: desc,
       amount: amount,
+      id: id,
     };
     remoteDB
       .update(uid, id, data)
@@ -333,13 +327,13 @@ function updateData() {
         console.log(error);
       });
   } else if (category[1].checked) {
-    type.disabled = true;
     val = category[1].value;
     let data = {
       date: date,
       type: "",
       desc: desc,
       amount: amount,
+      id: id,
     };
     remoteDB
       .update(uid, id, data)

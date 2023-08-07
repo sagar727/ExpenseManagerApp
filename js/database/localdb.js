@@ -113,35 +113,6 @@ class LocalDB {
     });
   }
 
-  // get(id,type) {
-  //   let storeName = "";
-  //   return new Promise((resolve, reject) => {
-  //     if (!this.isAvailable) {
-  //       reject("Database not available.");
-  //     }
-  //     if (type === "") {
-  //       storeName = "Income";
-  //     } else {
-  //       storeName = "Expenses";
-  //     }
-  //     const transaction = this.db.transaction(storeName, "readonly");
-  //     transaction.onerror = (event) => {
-  //       reject(event.target.error.message);
-  //     };
-  //     transaction.oncomplete = (event) => {
-  //       console.log(event);
-  //     };
-  //     const store = transaction.objectStore(storeName);
-  //     const storeRequest = store.get(id);
-  //     storeRequest.onerror = (event) => {
-  //       reject(event.target.error.message);
-  //     };
-  //     storeRequest.onsuccess = (event) => {
-  //       resolve(event.target.result);
-  //     };
-  //   });
-  // }
-
   getByExpenseType() {
     const typeNames = [
       "Accommodation",
