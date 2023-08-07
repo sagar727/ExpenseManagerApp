@@ -1,0 +1,55 @@
+.home-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(213, 227, 212, 0.2);
+  backdrop-filter: blur(2px);
+  padding: 30px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 20px;
+  border-radius: 10px;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 20px;
+  justify-content: space-between;
+  background-color: azure;
+  align-items: center;
+  border-color: rgb(107, 121, 98);
+  border-style: solid;
+  margin: 5px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  justify-content: center;
+}
+
+.detail-container {
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  margin: 0;
+}
+
+#editBtn,
+#deleteBtn {
+  height: 48px;
+  width: 48px;
+  background-color: transparent;
+  border: none;
+}
+#editImg,
+#deleteImg {
+  height: 40px;
+  width: 40px;
+}

@@ -1,0 +1,13 @@
+input,
+.date,
+select {
+  margin: 10px;
+  align-self: flex-start;
+}
+
+.radio-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

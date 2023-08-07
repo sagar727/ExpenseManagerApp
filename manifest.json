@@ -1,0 +1,37 @@
+{
+  "name": "Simple Maths",
+  "short_name": "Maths",
+  "description": "This is an app for simple maths.",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "theme_color": "#80CE17",
+  "background_color": "#e1e1e2",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icons/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
