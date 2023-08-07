@@ -25,7 +25,7 @@ localDB
   });
 
 const remoteDB = new RemoteDB();
-if (!navigator.onLine) {
+if (navigator.onLine) {
   remoteDB
     .open()
     .then((result) => {
