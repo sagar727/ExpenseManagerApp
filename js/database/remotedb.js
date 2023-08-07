@@ -97,7 +97,7 @@ class RemoteDB {
         reject("Database is not avaialble");
       }
 
-      const dbCollection = collection(this.db, "/Users/" + uid + "/Expenses");
+      const dbCollection = collection(this.db, uid);
       getDocs(dbCollection)
         .then((snapshot) => {
           snapshot.forEach((doc) => {
@@ -111,7 +111,7 @@ class RemoteDB {
           reject(error.message);
         });
 
-      const dbCollection1 = collection(this.db, "/Users/" + uid + "/Income");
+      const dbCollection1 = collection(this.db, uid);
       getDocs(dbCollection1)
         .then((snapshot) => {
           snapshot.forEach((doc) => {
@@ -122,6 +122,7 @@ class RemoteDB {
           });
           const total = incomeSum - expenseSum;
           result.push(total);
+          console.log(result);
           resolve(result);
         })
         .catch((error) => {
@@ -130,20 +131,13 @@ class RemoteDB {
     });
   }
 
-  add(storeName, data, uid) {
-    data.time = Date.now();
+  add(data, uid) {
     return new Promise((resolve, reject) => {
       if (this.open()) {
-        const dbCollection = collection(
-          this.db,
-          uid + "/" + storeName + "/" + data.time
-        );
-        const sendData = [];
+        const dbCollection = collection(this.db, uid);
         addDoc(dbCollection, data)
           .then((ref) => {
-            console.log(ref._key.path.segments[2]);
-            sendData.push(ref.id, ref._key.path.segments[2]);
-            resolve(sendData);
+            resolve(ref.id);
           })
           .catch((error) => {
             reject(error.message);

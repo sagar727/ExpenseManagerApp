@@ -52,7 +52,6 @@ if (navigator.onLine) {
     });
 }
 
-let timeid = Date.now();
 let id = "";
 
 function getListData() {
@@ -102,10 +101,9 @@ function add() {
 
     if (btn.innerText == "Save") {
       remotedb
-        .add("Expenses", data, uid)
+        .add(data, uid)
         .then((ref) => {
-          data.id = ref[0];
-          data.time = parseInt(ref[1]);
+          data.id = ref;
           alert("Record Saved!!");
           localDB
             .add("Expenses", data)
@@ -140,10 +138,9 @@ function add() {
 
     if (btn.innerText == "Save") {
       remotedb
-        .add("Income", data, uid)
+        .add(data, uid)
         .then((ref) => {
-          data.id = ref[0];
-          data.time = parseInt(ref[1]);
+          data.id = ref;
           alert("Record Saved!!");
           localDB
             .add("Income", data)
@@ -193,13 +190,12 @@ function addList(data) {
     const amount = childData.amount;
     const type = childData.type;
     const desc = childData.desc;
-    const time = childData.time;
     const id = childData.id;
-    listitems(date, amount, type, desc, time, id);
+    listitems(date, amount, type, desc, id);
   });
 }
 
-function listitems(date, amount, type, desc, time, id) {
+function listitems(date, amount, type, desc, id) {
   const maindiv = document.querySelector(".list-container");
   const node = document.createElement("DIV");
   node.className = "list-item";
@@ -239,7 +235,6 @@ function listitems(date, amount, type, desc, time, id) {
     localStorage.setItem("type", type);
     localStorage.setItem("desc", desc);
     localStorage.setItem("amount", amount);
-    localStorage.setItem("time", time);
     localStorage.setItem("id", id);
     location.href = "../add/add.html";
   }
@@ -247,10 +242,10 @@ function listitems(date, amount, type, desc, time, id) {
   deleteBtn.addEventListener("click", deleteList);
   function deleteList() {
     remoteDB
-      .delete(uid, id, type, time)
+      .delete(uid, id, type)
       .then(() => {
         localDB
-          .delete(time, type)
+          .delete(id, type)
           .then(() => {
             console.log("removed");
             location.href = "../home/home.html";
@@ -270,7 +265,7 @@ function listitems(date, amount, type, desc, time, id) {
 document.addEventListener("DOMContentLoaded", setData);
 
 function setData() {
-  if (localStorage.length == 1) {
+  if (localStorage.length < 6) {
     btn.innerText = "Save";
   } else {
     const timeData = localStorage.getItem("time");
@@ -314,9 +309,7 @@ function updateData() {
       type: type,
       desc: desc,
       amount: amount,
-      time: timeid,
     };
-    console.log(timeid);
     remoteDB
       .update(uid, id, data)
       .then((res) => {
@@ -325,7 +318,6 @@ function updateData() {
           .update(data)
           .then((res) => {
             console.log("updated");
-            localStorage.removeItem("time");
             localStorage.removeItem("id");
             localStorage.removeItem("date");
             localStorage.removeItem("type");
@@ -348,7 +340,6 @@ function updateData() {
       type: "",
       desc: desc,
       amount: amount,
-      time: timeid,
     };
     remoteDB
       .update(uid, id, data)
@@ -358,7 +349,6 @@ function updateData() {
           .update(data)
           .then((res) => {
             console.log("updated");
-            localStorage.removeItem("time");
             localStorage.removeItem("id");
             localStorage.removeItem("date");
             localStorage.removeItem("type");

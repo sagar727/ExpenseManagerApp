@@ -30,12 +30,12 @@ class LocalDB {
             keyPath: "uid",
           });
           const objectStore1 = db.createObjectStore("Expenses", {
-            keyPath: "time",
+            keyPath: "id",
           });
           objectStore1.createIndex("type", "type");
 
           const objectStore2 = db.createObjectStore("Income", {
-            keyPath: "time",
+            keyPath: "id",
           });
         };
       } else {
@@ -113,34 +113,34 @@ class LocalDB {
     });
   }
 
-  get(time, type) {
-    let storeName = "";
-    return new Promise((resolve, reject) => {
-      if (!this.isAvailable) {
-        reject("Database not available.");
-      }
-      if (type === "") {
-        storeName = "Income";
-      } else {
-        storeName = "Expenses";
-      }
-      const transaction = this.db.transaction(storeName, "readonly");
-      transaction.onerror = (event) => {
-        reject(event.target.error.message);
-      };
-      transaction.oncomplete = (event) => {
-        console.log(event);
-      };
-      const store = transaction.objectStore(storeName);
-      const storeRequest = store.get(time);
-      storeRequest.onerror = (event) => {
-        reject(event.target.error.message);
-      };
-      storeRequest.onsuccess = (event) => {
-        resolve(event.target.result);
-      };
-    });
-  }
+  // get(id,type) {
+  //   let storeName = "";
+  //   return new Promise((resolve, reject) => {
+  //     if (!this.isAvailable) {
+  //       reject("Database not available.");
+  //     }
+  //     if (type === "") {
+  //       storeName = "Income";
+  //     } else {
+  //       storeName = "Expenses";
+  //     }
+  //     const transaction = this.db.transaction(storeName, "readonly");
+  //     transaction.onerror = (event) => {
+  //       reject(event.target.error.message);
+  //     };
+  //     transaction.oncomplete = (event) => {
+  //       console.log(event);
+  //     };
+  //     const store = transaction.objectStore(storeName);
+  //     const storeRequest = store.get(id);
+  //     storeRequest.onerror = (event) => {
+  //       reject(event.target.error.message);
+  //     };
+  //     storeRequest.onsuccess = (event) => {
+  //       resolve(event.target.result);
+  //     };
+  //   });
+  // }
 
   getByExpenseType() {
     const typeNames = [
@@ -216,7 +216,7 @@ class LocalDB {
     });
   }
 
-  delete(time, type) {
+  delete(id, type) {
     let storeName = "";
     if (type == "") {
       storeName = "Income";
@@ -235,7 +235,7 @@ class LocalDB {
         console.log(event);
       };
       const store = transaction.objectStore(storeName);
-      const storeRequest = store.delete(time);
+      const storeRequest = store.delete(id);
       storeRequest.onerror = (event) => {
         reject(event.target.error.message);
       };
