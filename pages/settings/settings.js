@@ -41,13 +41,9 @@ function requestPermission() {
 
 function displayNotification() {
   const options = {
-    //body: "Don't forget to add today's expenses and income.",
-    body: (navigator.getBattery().level * 100).toFixed(0) + "%",
+    body: "Don't forget to add today's expenses and income.",
   };
-
-  navigator.serviceWorker.ready.then((registration) => {
-    registration.showNotification("Msg from ExpenseManager", options);
-  });
+  new Notification("Msg from ExpenseManager", options);
 }
 
 const outBtn = document.getElementById("sign");
@@ -80,15 +76,13 @@ async function handleBatteryStatusAPI() {
     const battery = await navigator.getBattery();
     console.log(battery);
     if (battery.charging == false) {
+      console.log(battery.level);
       if ((battery.level * 100).toFixed(0) < 20) {
         const options = {
           body: "Please charge your phone.",
         };
 
         new Notification("Msg from ExpenseManager", options);
-        // navigator.serviceWorker.ready.then((registration) => {
-        //   registration.showNotification("Msg from ExpenseManager", options);
-        // });
       }
     }
   } else {
