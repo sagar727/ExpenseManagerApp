@@ -85,9 +85,10 @@ async function handleBatteryStatusAPI() {
           body: "Please charge your phone.",
         };
 
-        navigator.serviceWorker.ready.then((registration) => {
-          registration.showNotification("Msg from ExpenseManager", options);
-        });
+        new Notification("Msg from ExpenseManager", options);
+        // navigator.serviceWorker.ready.then((registration) => {
+        //   registration.showNotification("Msg from ExpenseManager", options);
+        // });
       }
     }
   } else {
