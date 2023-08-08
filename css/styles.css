@@ -85,22 +85,41 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin: 20px;
   border-radius: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 input {
   margin: 10px;
+  padding: 5px;
+  width: 200px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
 }
+
+input:focus {
+  outline: none;
+}
+
 button {
   background-color: #2f9062;
   color: white;
   margin-top: 10px;
-  border-radius: 5px;
+  border-radius: 20px;
   padding: 5px;
-  width: 100px;
+  width: 150px;
+  font-size: 18px;
 }
 
 #signuplink {
   text-decoration: none;
   color: black;
   margin-top: 10px;
+}
+
+.pass-validation-container {
+  color: red;
+  font-size: 14px;
+  width: 200px;
 }

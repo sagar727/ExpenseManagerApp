@@ -14,7 +14,6 @@ class LocalDB {
 
         request.onsuccess = (event) => {
           const db = event.target.result;
-          console.log("open");
           if (db) {
             this.db = db;
             this.isAvailable = true;

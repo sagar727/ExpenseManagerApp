@@ -3,6 +3,7 @@ input,
 select {
   margin: 10px;
   align-self: flex-start;
+  font-size: 18px;
 }
 
 .radio-container {
@@ -10,4 +11,5 @@ select {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100px;
 }

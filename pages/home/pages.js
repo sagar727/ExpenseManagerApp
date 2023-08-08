@@ -1,4 +1,4 @@
-import RemoteDB from "../../js/database/remotedb.js";
+import RemoteDB from "../../js/database/remote-db.js";
 
 let uid = localStorage.getItem("uid");
 
@@ -7,9 +7,7 @@ let val = "";
 const remotedb = new RemoteDB();
 remotedb
   .open()
-  .then((res) => {
-    console.log(res);
-  })
+  .then((res) => {})
   .catch((error) => {
     console.log(error);
   });
@@ -17,20 +15,16 @@ remotedb
 const localDB = new LocalDB();
 localDB
   .open()
-  .then((result) => {
-    console.log(result);
-  })
+  .then((result) => {})
   .catch((error) => {
     console.log(error);
   });
 
-const remoteDB = new RemoteDB();
-console.log(navigator.onLine);
 if (navigator.onLine == true) {
-  remoteDB
+  remotedb
     .open()
     .then((result) => {
-      remoteDB
+      remotedb
         .displayData(uid)
         .then((data) => {
           addList(data);
@@ -236,7 +230,7 @@ function listitems(date, amount, type, desc, id) {
 
   deleteBtn.addEventListener("click", deleteList);
   function deleteList() {
-    remoteDB
+    remotedb
       .delete(uid, id)
       .then(() => {
         localDB
@@ -304,7 +298,7 @@ function updateData() {
       amount: amount,
       id: id,
     };
-    remoteDB
+    remotedb
       .update(uid, id, data)
       .then((res) => {
         console.log("updated");
@@ -335,7 +329,7 @@ function updateData() {
       amount: amount,
       id: id,
     };
-    remoteDB
+    remotedb
       .update(uid, id, data)
       .then((res) => {
         console.log("updated");

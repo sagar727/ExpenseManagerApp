@@ -2,7 +2,6 @@ const localDB = new LocalDB();
 localDB
   .open()
   .then((result) => {
-    console.log(result);
     loadChart();
   })
   .catch((error) => {

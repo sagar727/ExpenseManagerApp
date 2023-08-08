@@ -1,9 +1,10 @@
-import RemoteDB from "../../js/database/remotedb.js";
+import RemoteDB from "../js/database/remote-db.js";
 
 // Service Worker registration
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/service-worker.js")
+    .then((registration) => {})
     .catch(function (error) {
       console.log("Service Worker failed to register:", error);
     });
@@ -35,36 +36,40 @@ function login() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
 
-  if (navigator.onLine) {
-    remotedb
-      .login(username, password)
-      .then((res) => {
-        localStorage.setItem("uid", res);
-        location.href = "./pages/home/home.html";
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  if (username == "" || password == "") {
+    alert("Please enter email and password.");
   } else {
-    localDB
-      .checkLogin()
-      .then((res) => {
-        checkUser(res);
-      })
-      .catch((error) => {
-        console.log("error");
-      });
-
-    function checkUser(data) {
-      data.forEach((childData) => {
-        const email = childData.email;
-        const pass = childData.password;
-        if (username === email && password === pass) {
+    if (navigator.onLine) {
+      remotedb
+        .login(username, password)
+        .then((res) => {
+          localStorage.setItem("uid", res);
           location.href = "./pages/home/home.html";
-        } else {
-          alert("Incorrect username or password.");
-        }
-      });
+        })
+        .catch((error) => {
+          alert("Invalid email/password.");
+        });
+    } else {
+      localDB
+        .checkLogin()
+        .then((res) => {
+          checkUser(res);
+        })
+        .catch((error) => {
+          alert("Invalid email/password.");
+        });
+
+      function checkUser(data) {
+        data.forEach((childData) => {
+          const email = childData.email;
+          const pass = childData.password;
+          if (username === email && password === pass) {
+            location.href = "./pages/home/home.html";
+          } else {
+            alert("Invalid email/password.");
+          }
+        });
+      }
     }
   }
 }

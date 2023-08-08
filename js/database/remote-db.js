@@ -15,7 +15,7 @@ import {
   doc,
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-class RemoteDB {
+class ExpenseDB {
   constructor() {
     this.db = null;
     this.auth = null;
@@ -168,4 +168,4 @@ class RemoteDB {
     });
   }
 }
-export default RemoteDB;
+export default ExpenseDB;

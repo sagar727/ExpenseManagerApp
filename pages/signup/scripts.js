@@ -1,4 +1,4 @@
-import RemoteDB from "../../js/database/remotedb.js";
+import RemoteDB from "../../js/database/remote-db.js";
 
 const localDB = new LocalDB();
 const res = localDB
@@ -29,28 +29,33 @@ function signup() {
   if (username != "") {
     if (password != "" || password2 != "") {
       if (password === password2) {
-        remotedb
-          .signUpUser(username, password2)
-          .then((res) => {
-            console.log(res);
-            let data = {
-              email: username,
-              password: password2,
-              uid: res.uid,
-            };
-            localDB
-              .add("Users", data)
-              .then(() => {
-                location.href = "../../index.html";
-              })
-              .catch((error) => {
-                console.log(error);
-                alert("Error while signup, Please try again later.");
-              });
-          })
-          .catch((error) => {
-            alert(error);
-          });
+        var passw = /^[A-Za-z]\w{7,14}$/;
+        if (!password.match(passw)) {
+          alert("Invalid password characters");
+        } else {
+          remotedb
+            .signUpUser(username, password2)
+            .then((res) => {
+              console.log(res);
+              let data = {
+                email: username,
+                password: password2,
+                uid: res.uid,
+              };
+              localDB
+                .add("Users", data)
+                .then(() => {
+                  location.href = "../../index.html";
+                })
+                .catch((error) => {
+                  console.log(error);
+                  alert("Error while signup, Please try again later.");
+                });
+            })
+            .catch((error) => {
+              alert(error);
+            });
+        }
       } else {
         alert("Both passwords must be matched.");
       }

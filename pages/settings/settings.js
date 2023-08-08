@@ -1,11 +1,9 @@
-import RemoteDB from "../../js/database/remotedb.js";
+import RemoteDB from "../../js/database/remote-db.js";
 
 const remotedb = new RemoteDB();
 remotedb
   .open()
-  .then((res) => {
-    console.log(res);
-  })
+  .then((res) => {})
   .catch((error) => {
     console.log(error);
   });
