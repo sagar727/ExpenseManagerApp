@@ -6,6 +6,10 @@ select {
   font-size: 18px;
 }
 
+select {
+  padding: 8px;
+}
+
 .radio-container {
   display: flex;
   flex-direction: row;

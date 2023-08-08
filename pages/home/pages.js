@@ -79,79 +79,85 @@ const btn = document.getElementById("saveBtn");
 btn.addEventListener("click", add);
 
 function add() {
-  const amount = parseFloat(document.getElementById("amount").value);
+  const amt = document.getElementById("amount").value;
   const desc = document.getElementById("description").value;
   const type = document.getElementById("choose-sel").value;
   const date = document.getElementById("datepicker").value;
   const category = document.getElementsByName("category");
   const btn = document.getElementById("saveBtn");
-  if (category[0].checked) {
-    val = category[0].value;
-    let data = {
-      date: date,
-      type: type,
-      desc: desc,
-      amount: amount,
-    };
 
-    if (btn.innerText == "Save") {
-      remotedb
-        .add(data, uid)
-        .then((ref) => {
-          data.id = ref;
-          alert("Record Saved!!");
-          localDB
-            .add("Expenses", data)
-            .then(() => {
-              data = {};
-            })
-            .catch((error) => {
-              console.log(error);
-              alert("Not saved.");
-            });
-          data = {};
-          location.href = "../home/home.html";
-        })
-        .catch((error) => {
-          console.log(error);
-          //alert("Error saving data.");
-        });
-    } else if (btn.innerText == "Update") {
-      updateData();
-    }
-  } else if (category[1].checked) {
-    val = category[1].value;
-    let data = {
-      date: date,
-      type: "",
-      desc: desc,
-      amount: amount,
-    };
+  if (date == "" || amt == "") {
+    alert("Please add data.");
+  } else {
+    const amount = parseFloat(amt);
+    if (category[0].checked) {
+      val = category[0].value;
+      let data = {
+        date: date,
+        type: type,
+        desc: desc,
+        amount: amount,
+      };
 
-    if (btn.innerText == "Save") {
-      remotedb
-        .add(data, uid)
-        .then((ref) => {
-          data.id = ref;
-          alert("Record Saved!!");
-          localDB
-            .add("Income", data)
-            .then(() => {
-              data = {};
-            })
-            .catch((error) => {
-              console.log(error);
-              alert("Not saved.");
-            });
-          data = {};
-          location.href = "../home/home.html";
-        })
-        .catch((error) => {
-          console.log(error);
-          //alert("Error saving data.");
-        });
-    } else if (btn.innerText == "Update") {
-      updateData();
+      if (btn.innerText == "Save") {
+        remotedb
+          .add(data, uid)
+          .then((ref) => {
+            data.id = ref;
+            alert("Record Saved!!");
+            localDB
+              .add("Expenses", data)
+              .then(() => {
+                data = {};
+              })
+              .catch((error) => {
+                console.log(error);
+                alert("Not saved.");
+              });
+            data = {};
+            location.href = "../home/home.html";
+          })
+          .catch((error) => {
+            console.log(error);
+            //alert("Error saving data.");
+          });
+      } else if (btn.innerText == "Update") {
+        updateData();
+      }
+    } else if (category[1].checked) {
+      val = category[1].value;
+      let data = {
+        date: date,
+        type: "",
+        desc: desc,
+        amount: amount,
+      };
+
+      if (btn.innerText == "Save") {
+        remotedb
+          .add(data, uid)
+          .then((ref) => {
+            data.id = ref;
+            alert("Record Saved!!");
+            localDB
+              .add("Income", data)
+              .then(() => {
+                data = {};
+              })
+              .catch((error) => {
+                console.log(error);
+                alert("Not saved.");
+              });
+            data = {};
+            location.href = "../home/home.html";
+          })
+          .catch((error) => {
+            console.log(error);
+            //alert("Error saving data.");
+          });
+      } else if (btn.innerText == "Update") {
+        updateData();
+      }
     }
   }
 }
@@ -351,14 +357,5 @@ function updateData() {
       .catch((error) => {
         console.log(error);
       });
-  }
-}
-
-async function handleBatteryStatusAPI() {
-  if ("getBattery" in navigator) {
-    const battery = await navigator.getBattery();
-    console.log(battery);
-  } else {
-    console.log("batteryapi not available");
   }
 }
