@@ -103,7 +103,6 @@ class RemoteDB {
           snapshot.forEach((doc) => {
             const data = doc.data();
             data.id = doc.id;
-            console.log(data);
             if (data.type == "") {
               incomeSum = incomeSum + data.amount;
             } else {

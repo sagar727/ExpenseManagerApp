@@ -20,7 +20,7 @@ async function handlePermissionsAPI() {
     if (status.state == "prompt") {
       requestPermission();
     } else if (status.state == "granted") {
-      displayNotification();
+      dateLoop();
     } else if (status.state == "denied") {
       console.log("denied");
     }
@@ -32,7 +32,7 @@ async function handlePermissionsAPI() {
 function requestPermission() {
   Notification.requestPermission().then((permission) => {
     if (permission == "granted") {
-      displayNotification();
+      dateLoop();
     } else if (permission == "denied") {
       console.log("denied");
     }
@@ -65,9 +65,10 @@ checkMode.addEventListener("click", notifyMe);
 
 function notifyMe() {
   if (checkMode.checked == false) {
-    handleBatteryStatusAPI();
+    clearInterval(dateLoop);
   } else if ((checkMode.checked = true)) {
     handlePermissionsAPI();
+    handleBatteryStatusAPI();
   }
 }
 
@@ -89,3 +90,15 @@ async function handleBatteryStatusAPI() {
     console.log("batteryapi not available");
   }
 }
+function checkDate() {
+  var date = new Date();
+  console.log(date.getDay());
+  console.log(date.getHours());
+  if (date.getHours() === 20) {
+    displayNotification();
+  }
+}
+
+var dateLoop = setInterval(function () {
+  checkDate();
+}, 3600000);

@@ -1,12 +1,12 @@
 {
-  "name": "Simple Maths",
-  "short_name": "Maths",
-  "description": "This is an app for simple maths.",
+  "name": "Expense Manager",
+  "short_name": "Expense Manager",
+  "description": "This is an app to track daily expenses.",
   "start_url": "/",
   "id": "/",
   "display": "standalone",
-  "theme_color": "#80CE17",
-  "background_color": "#e1e1e2",
+  "theme_color": "#2F9062",
+  "background_color": "#c2e3c0",
   "orientation": "any",
   "icons": [
     {
