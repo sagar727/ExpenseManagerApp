@@ -99,4 +99,4 @@ function checkDate() {
 
 var dateLoop = setInterval(function () {
   checkDate();
-}, 3600000);
+}, 5000);
