@@ -31,7 +31,6 @@ self.addEventListener("install", (event) => {
           "/images/delete.png",
           "/images/pencil.png",
           "/images/logo.png",
-          "/manifest.json",
         ]);
       })
       .catch((error) => {
