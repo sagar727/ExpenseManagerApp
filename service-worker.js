@@ -57,10 +57,9 @@ self.addEventListener("fetch", (event) => {
   //Cache strategy: Network with cache fallback
 
   event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.open(cachename).then((cache) => {
-        return cache.match(event.request);
-      });
+    fetch(event.request).catch(async () => {
+      const cache = await caches.open(cachename);
+      return await cache.match(event.request);
     })
   );
 });
