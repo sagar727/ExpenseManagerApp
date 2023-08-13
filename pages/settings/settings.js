@@ -92,7 +92,7 @@ function checkDate() {
   var date = new Date();
   console.log(date.getDay());
   console.log(date.getHours());
-  if (date.getHours() === 20) {
+  if (date.getHours() === 22) {
     displayNotification();
   }
 }
